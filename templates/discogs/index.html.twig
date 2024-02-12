@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Informations sur l'Artiste</h1>
+    <ul>
+    {% for key, img in img %}
+        <li>
+            <img src="{{ img }}" width="100px" height="100px">
+            <p>{{ title[key] }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

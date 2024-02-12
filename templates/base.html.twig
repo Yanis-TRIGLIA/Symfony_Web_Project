@@ -29,11 +29,12 @@
 
             <div class="collapse navbar-collapse ms-auto" id="navbarSupportedContent">
                 
-                <form class="form-inline ms-auto"> <!-- Ajout de la classe ml-auto -->
+                <form class="form-inline ms-auto" action="{{ path('search', {'name': 'beatles'}) }}"> 
                     <input class="" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                
+
+    
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {% if app.user %}
                     <li class="nav-item active">
