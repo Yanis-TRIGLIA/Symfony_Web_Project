@@ -5,11 +5,16 @@
     <h1>Informations sur l'Artiste</h1>
     <ul>
     {% for key, img in img %}
-        <li>
-            <img src="{{ img }}" width="100px" height="100px">
-            <p>{{ title[key] }}</p>
-        </li>
-    {% endfor %}
+    <li>
+        <form action="{{ path('app_album', {'id': key}) }}" method="get">
+            <button type="submit">
+                <img src="{{ img }}" width="100px" height="100px">
+                <p>{{ title[key] }}</p>
+            </button>
+        </form>
+    </li>
+{% endfor %}
+
     </ul>
 </div>
 {% endblock %}
