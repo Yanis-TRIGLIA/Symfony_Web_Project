@@ -23,32 +23,85 @@ class DiscogsController extends AbstractController
         $img = [];
         $title = [];
         $id = [];
+        $type = [];
         foreach ($artist['results'] as $result) {
             $title[] = $result['title'];
             $img[] = $result['cover_image'];
             $id[] = $result['id'];
+            $type[] = $result['type'];
         }
 
         return $this->render('discogs/index.html.twig', [
             'title' => $title,
             'img' => $img,
-            'id' => $id
+            'id' => $id,
+            'type' => $type
         ]);
     }
 
-    #[Route('/album/{id}', name: 'app_album')]
-    public function music_information(Request $request,DiscogsClient $discogs,$id)
+    #[Route('/album/{id}/{type}', name: 'app_album')]
+    public function music_information(Request $request,DiscogsClient $discogs,$id,$type)
     {
-        
-        $album = $discogs->getRelease([
+
+        /// for release
+        if($type =="release"){
+            $part = $discogs->getRelease([
             'id' => $id,
         ]);
-     
-        var_dump($album);
+
+        $title = []; 
+        $duration = [];
+        foreach ($part['tracklist'] as $track) {
+            $title [] = $track['title'];
+            $duration[] = $track['duration'];
+        }
+        
+
+        return $this->render('discogs/album.html.twig', [
+            'part' => $part,
+            'type' => $type,
+            'duration'=> $duration,
+            'title'=>$title
+        ]);
+        
+        }
+
+        /// for master
+        if($type =="master"){
+            $album = $discogs->getMaster([
+            'id' => $id,
+        ]);
+
+        $duration = [];
+        $title = [];
+        foreach ($album['tracklist'] as $track) {            
+            $title [] = $track['title'];
+            $duration[] = $track['duration'];
+        }
 
         return $this->render('discogs/album.html.twig', [
             'album' => $album,
+            'type' => $type,
+            'duration'=> $duration,
+            'title'=>$title
         ]);
+        }
+
+        /// for artist
+        if($type =="artist"){
+            $artist = $discogs->getArtist([
+            'id' => $id,
+        ]);
+        return $this->render('discogs/album.html.twig', [
+            'artist' => $artist,
+            'type' => $type
+        ]);
+       
+        }
+        
+        
+
+        
 
     }
 
