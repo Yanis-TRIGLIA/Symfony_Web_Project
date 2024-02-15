@@ -44,7 +44,6 @@
     <ul class="artist-images-list">
         {% for key, img in img %}
             <li class="artist-image-item">
-                {{dump(type[key])}}
                 {% if type[key] == "master" or type[key] == "release" %}
                     <form action="{{ path('album_read', {'id': id[key],'type': type[key]}) }}" method="get">
                         <button type="submit" class="image-button">
