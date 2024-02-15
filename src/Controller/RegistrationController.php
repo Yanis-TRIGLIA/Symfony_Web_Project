@@ -20,7 +20,7 @@ class RegistrationController extends AbstractController
 {
     
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AuthenticatorForUsersAuthenticator $authenticator, EntityManagerInterface $entityManager,MailerInterface $mailer): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AuthenticatorForUsersAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
 
         $user = new Users();
@@ -29,17 +29,18 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $email = (new Email())
-            ->from('yanistrigl@gmail.com')
-            ->to('yanis.triglia@etu.univ-amu.fr')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            ->replyTo('yanis.triglia@etu.univ-amu.fr')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
-            $mailer->send($email);
+            // ,MailerInterface $mailer
+            // $email = (new Email())
+            // ->from('yanistrigl@gmail.com')
+            // ->to('yanis.triglia@etu.univ-amu.fr')
+            // //->cc('cc@example.com')
+            // //->bcc('bcc@example.com')
+            // ->replyTo('yanis.triglia@etu.univ-amu.fr')
+            // //->priority(Email::PRIORITY_HIGH)
+            // ->subject('Time for Symfony Mailer!')
+            // ->text('Sending emails is fun again!')
+            // ->html('<p>See Twig integration for better HTML integration!</p>');
+            // $mailer->send($email);
 
             // encode the plain password
             $user->setPassword(

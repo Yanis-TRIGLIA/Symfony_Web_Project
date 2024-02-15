@@ -70,21 +70,21 @@ class DiscogsController extends AbstractController
         if($type =="master"){
             $album = $discogs->getMaster([
             'id' => $id,
-        ]);
+            ]);
 
-        $duration = [];
-        $title = [];
-        foreach ($album['tracklist'] as $track) {            
-            $title [] = $track['title'];
-            $duration[] = $track['duration'];
-        }
+            $duration = [];
+            $title = [];
+            foreach ($album['tracklist'] as $track) {            
+                $title [] = $track['title'];
+                $duration[] = $track['duration'];
+            }
 
-        return $this->render('discogs/album.html.twig', [
-            'album' => $album,
-            'type' => $type,
-            'duration'=> $duration,
-            'title'=>$title
-        ]);
+            return $this->render('discogs/album.html.twig', [
+                'album' => $album,
+                'type' => $type,
+                'duration'=> $duration,
+                'title'=>$title
+            ]);
         }
 
         /// for artist
@@ -98,12 +98,5 @@ class DiscogsController extends AbstractController
         ]);
        
         }
-        
-        
-
-        
-
     }
-
-
 }
