@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Artists;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -39,53 +38,10 @@ class DiscogsController extends AbstractController
         ]);
     }
 
-    #[Route('/album/{id}/{type}', name: 'app_album')]
+    #[Route('/discogs/{id}/{type}', name: 'app_album')]
     public function music_information(Request $request,DiscogsClient $discogs,$id,$type)
     {
 
-        /// for release
-        if($type =="release"){
-            $part = $discogs->getRelease([
-            'id' => $id,
-        ]);
-
-        $title = []; 
-        $duration = [];
-        foreach ($part['tracklist'] as $track) {
-            $title [] = $track['title'];
-            $duration[] = $track['duration'];
-        }
-        
-
-        return $this->render('discogs/album.html.twig', [
-            'part' => $part,
-            'type' => $type,
-            'duration'=> $duration,
-            'title'=>$title
-        ]);
-        
-        }
-
-        /// for master
-        if($type =="master"){
-            $album = $discogs->getMaster([
-            'id' => $id,
-            ]);
-
-            $duration = [];
-            $title = [];
-            foreach ($album['tracklist'] as $track) {            
-                $title [] = $track['title'];
-                $duration[] = $track['duration'];
-            }
-
-            return $this->render('discogs/album.html.twig', [
-                'album' => $album,
-                'type' => $type,
-                'duration'=> $duration,
-                'title'=>$title
-            ]);
-        }
 
         /// for artist
         if($type =="artist"){

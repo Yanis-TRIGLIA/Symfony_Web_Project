@@ -50,6 +50,13 @@
                         <button type="submit" class="image-button">
                             <img src="{{ img }}" alt="Artwork" class="artist-image">
                             <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
+                        </button>z
+                    </form>
+                {% elseif type[key] == "artist" %}
+                    <form action="{{ path('artists_read', {'id': id[key],'type': type[key]}) }}" method="get">
+                        <button type="submit" class="image-button">
+                            <img src="{{ img }}" alt="Artwork" class="artist-image">
+                            <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
                         </button>
                     </form>
                 {% else %}
