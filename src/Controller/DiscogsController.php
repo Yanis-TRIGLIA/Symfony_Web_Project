@@ -37,22 +37,4 @@ class DiscogsController extends AbstractController
             'type' => $type
         ]);
     }
-
-    #[Route('/discogs/{id}/{type}', name: 'app_album')]
-    public function music_information(Request $request,DiscogsClient $discogs,$id,$type)
-    {
-
-
-        /// for artist
-        if($type =="artist"){
-            $artist = $discogs->getArtist([
-            'id' => $id,
-        ]);
-        return $this->render('discogs/album.html.twig', [
-            'artist' => $artist,
-            'type' => $type
-        ]);
-       
-        }
-    }
 }

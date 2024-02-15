@@ -60,7 +60,7 @@
                         </button>
                     </form>
                 {% else %}
-                        <form action="{{ path('app_album', {'id': id[key],'type': type[key]}) }}" method="get">
+                        <form action="{{ path('label_read', {'id': id[key],'type': type[key]}) }}" method="get">
                         <button type="submit" class="image-button">
                             <img src="{{ img }}" alt="Artwork" class="artist-image">
                             <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
