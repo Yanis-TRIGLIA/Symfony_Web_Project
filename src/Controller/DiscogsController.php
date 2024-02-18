@@ -11,14 +11,22 @@ use Discogs\DiscogsClient;
 
 class DiscogsController extends AbstractController
 {
-    #[Route('/search/{name}', name: 'search')]
-    public function index(DiscogsClient $discogs,$name)
+
+    #[Route('/search/{name}/{style}/{genre}', name: 'search')]
+    public function search_with_filter(DiscogsClient $discogs, $name, $style, $genre)
     {
-        $artist = $discogs->search([
-            'q' => $name,
-        ]);
-
-
+        $searchParams = ['q' => $name];
+    
+        if ($style != "Aucun") {
+            $searchParams['style'] = $style;
+        }
+    
+        if ($genre != "Aucun") {
+            $searchParams['genre'] = $genre;
+        }
+    
+        $artist = $discogs->search($searchParams);
+    
         $img = [];
         $title = [];
         $id = [];
@@ -29,7 +37,7 @@ class DiscogsController extends AbstractController
             $id[] = $result['id'];
             $type[] = $result['type'];
         }
-
+    
         return $this->render('discogs/index.html.twig', [
             'title' => $title,
             'img' => $img,
@@ -37,4 +45,5 @@ class DiscogsController extends AbstractController
             'type' => $type
         ]);
     }
+    
 }

@@ -15,19 +15,17 @@ class Liste
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $list_name = null;
+    #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'listes', fetch: 'EAGER')]
+    #[ORM\JoinTable(name: 'album_list')]
+    private Collection $albums;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Users $id_user = null;
-
-    #[ORM\OneToMany(targetEntity: AlbumList::class, mappedBy: 'id_list')]
-    private Collection $albumLists;
+    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'listes')]
+    private Collection $users;
 
     public function __construct()
     {
-        $this->albumLists = new ArrayCollection();
+        $this->albums = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -35,55 +33,55 @@ class Liste
         return $this->id;
     }
 
-    public function getListName(): ?string
-    {
-        return $this->list_name;
-    }
-
-    public function setListName(string $list_name): static
-    {
-        $this->list_name = $list_name;
-
-        return $this;
-    }
-
-    public function getIdUser(): ?Users
-    {
-        return $this->id_user;
-    }
-
-    public function setIdUser(Users $id_user): static
-    {
-        $this->id_user = $id_user;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, AlbumList>
+     * @return Collection<int, Album>
      */
-    public function getAlbumLists(): Collection
+    public function getAlbums(): Collection
     {
-        return $this->albumLists;
+        return $this->albums;
     }
 
-    public function addAlbumList(AlbumList $albumList): static
+    public function addAlbum(Album $album): self
     {
-        if (!$this->albumLists->contains($albumList)) {
-            $this->albumLists->add($albumList);
-            $albumList->setIdList($this);
+        if (!$this->albums->contains($album)) {
+            $this->albums[] = $album;
+            $album->addListe($this);
         }
 
         return $this;
     }
 
-    public function removeAlbumList(AlbumList $albumList): static
+    public function removeAlbum(Album $album): self
     {
-        if ($this->albumLists->removeElement($albumList)) {
-            // set the owning side to null (unless already changed)
-            if ($albumList->getIdList() === $this) {
-                $albumList->setIdList(null);
-            }
+        if ($this->albums->removeElement($album)) {
+            $album->removeListe($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Users>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(Users $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addList($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeListe($this);
         }
 
         return $this;

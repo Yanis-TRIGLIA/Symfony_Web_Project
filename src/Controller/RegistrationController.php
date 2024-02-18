@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
-
+use App\Entity\Liste;
 class RegistrationController extends AbstractController
 {
     
@@ -28,6 +28,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
 
             // ,MailerInterface $mailer
             // $email = (new Email())
@@ -50,9 +51,15 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $list = new Liste();
+            $user->addList($list);
+
+            $entityManager->persist($list);
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+
+            
+            
 
             return $userAuthenticator->authenticateUser(
                 $user,

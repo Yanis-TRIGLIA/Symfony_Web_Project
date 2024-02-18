@@ -11,13 +11,13 @@ class Cover
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    public ?int $id ;
 
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    public ?string $url = null;
 
     #[ORM\OneToOne(mappedBy: 'id_cover', cascade: ['persist', 'remove'])]
-    private ?AlbumCover $albumCover = null;
+    public ?AlbumCover $albumCover = null;
 
     public function getId(): ?int
     {

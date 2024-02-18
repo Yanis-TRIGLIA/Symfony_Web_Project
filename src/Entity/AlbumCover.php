@@ -11,12 +11,12 @@ class AlbumCover
     #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'albumCover', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Album $id_album = null;
+    public ?Album $id_album = null;
 
     #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'albumCover', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: true)]
-    private ?Cover $id_cover = null;
+    public ?Cover $id_cover = null;
 
 
     public function getIdAlbum(): ?Album

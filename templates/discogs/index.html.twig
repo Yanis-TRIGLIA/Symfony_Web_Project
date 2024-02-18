@@ -2,72 +2,92 @@
 
 {% block body %}
 <style>
-.artist-info-wrapper {
-    margin: 20px;
-}
+    .artist-info-wrapper {
+        margin: 20px;
+    }
 
-.artist-images-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-}
+    .artist-images-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
 
-.artist-image-item {
-    margin: 10px;
-}
+    .artist-column {
+        flex: 1 1 calc(100% / 7); /* Chaque colonne aura 7 boutons au maximum */
+        max-width: calc(100% / 7); /* Limite la largeur de chaque colonne */
+        padding: 0 10px; /* Espacement entre les colonnes */
+    }
 
-.image-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    text-align: center;
-}
+    .image-button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        text-align: center;
+        display: block;
+        width: 100%; /* Boutons occupent toute la largeur de la colonne */
+    }
 
-.artist-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-}
+    .artist-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
 
-.image-title {
-    margin-top: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
+    .image-title {
+        margin-top: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        background-color:rgba(211,211,211,0.4)
+    }
 
+    .artist-image {
+        transition: transform 0.3s ease;
+    }
+
+    .image-button:hover .artist-image {
+        transform: scale(1.2);
+    }
 </style>
 <div class="artist-info-wrapper">
     <h3>Résultat pour : </h3>
-    <ul class="artist-images-list">
-        {% for key, img in img %}
-            <li class="artist-image-item">
-                {% if type[key] == "master" or type[key] == "release" %}
-                    <form action="{{ path('album_read', {'id': id[key],'type': type[key]}) }}" method="get">
-                        <button type="submit" class="image-button">
-                            <img src="{{ img }}" alt="Artwork" class="artist-image">
-                            <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
-                        </button>z
-                    </form>
-                {% elseif type[key] == "artist" %}
-                    <form action="{{ path('artists_read', {'id': id[key],'type': type[key]}) }}" method="get">
-                        <button type="submit" class="image-button">
-                            <img src="{{ img }}" alt="Artwork" class="artist-image">
-                            <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
-                        </button>
-                    </form>
-                {% else %}
+    <div class="artist-images-list">
+        {% set count = 0 %}
+        <div class="artist-column">
+            {% for key, img in img %}
+                {% set count = count + 1 %}
+                <li>
+                    {% if type[key] == "master" or type[key] == "release" %}
+                        <form action="{{ path('album_read', {'id': id[key],'type': type[key]}) }}" method="get">
+                            <button type="submit" class="image-button">
+                                <img src="{{ img }}" alt="Artwork" class="artist-image">
+                                <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
+                            </button>
+                        </form>
+                    {% elseif type[key] == "artist" %}
+                        <form action="{{ path('artists_read', {'id': id[key],'type': type[key]}) }}" method="get">
+                            <button type="submit" class="image-button">
+                                <img src="{{ img }}" alt="Artwork" class="artist-image">
+                                <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
+                            </button>
+                        </form>
+                    {% else %}
                         <form action="{{ path('label_read', {'id': id[key],'type': type[key]}) }}" method="get">
-                        <button type="submit" class="image-button">
-                            <img src="{{ img }}" alt="Artwork" class="artist-image">
-                            <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
-                        </button>
-                    </form>
-                {% endif %} 
-            </li>
-        {% endfor %}
-    </ul>
+                            <button type="submit" class="image-button">
+                                <img src="{{ img }}" alt="Artwork" class="artist-image">
+                                <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
+                            </button>
+                        </form>
+                    {% endif %} 
+                </li>
+                {% if count == 7 %}
+                    {% set count = 0 %}
+                    </div><div class="artist-column">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

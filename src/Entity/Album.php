@@ -40,18 +40,18 @@ class Album
     #[ORM\OneToMany(targetEntity: AlbumStyle::class, mappedBy: 'id_album')]
     private Collection $albumStyles;
 
-    #[ORM\OneToMany(targetEntity: AlbumList::class, mappedBy: 'id_album')]
-    private Collection $albumLists;
+    #[ORM\OneToMany(targetEntity: Liste::class, mappedBy: 'albums')]
+    private Collection $listes;
 
     #[ORM\OneToOne(mappedBy: 'id_album', cascade: ['persist', 'remove'])]
-    private ?AlbumCover $albumCover = null;
+    private ?AlbumCover $albumCover ;
 
     public function __construct()
     {
         $this->albumParts = new ArrayCollection();
         $this->albumGenders = new ArrayCollection();
         $this->albumStyles = new ArrayCollection();
-        $this->albumLists = new ArrayCollection();
+        $this->listes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,12 +102,10 @@ class Album
 
     public function setAlbumBand(?AlbumBand $albumBand): static
     {
-        // unset the owning side of the relation if necessary
         if ($albumBand === null && $this->albumBand !== null) {
             $this->albumBand->setIdAlbum(null);
         }
 
-        // set the owning side of the relation if necessary
         if ($albumBand !== null && $albumBand->getIdAlbum() !== $this) {
             $albumBand->setIdAlbum($this);
         }
@@ -138,7 +136,6 @@ class Album
     public function removeAlbumPart(AlbumPart $albumPart): static
     {
         if ($this->albumParts->removeElement($albumPart)) {
-            // set the owning side to null (unless already changed)
             if ($albumPart->getIdAlbum() === $this) {
                 $albumPart->setIdAlbum(null);
             }
@@ -154,7 +151,6 @@ class Album
 
     public function setAlbumLabel(AlbumLabel $albumLabel): static
     {
-        // set the owning side of the relation if necessary
         if ($albumLabel->getIdAlbum() !== $this) {
             $albumLabel->setIdAlbum($this);
         }
@@ -185,7 +181,7 @@ class Album
     public function removeAlbumGender(AlbumGender $albumGender): static
     {
         if ($this->albumGenders->removeElement($albumGender)) {
-            // set the owning side to null (unless already changed)
+
             if ($albumGender->getIdAlbum() === $this) {
                 $albumGender->setIdAlbum(null);
             }
@@ -215,7 +211,7 @@ class Album
     public function removeAlbumStyle(AlbumStyle $albumStyle): static
     {
         if ($this->albumStyles->removeElement($albumStyle)) {
-            // set the owning side to null (unless already changed)
+
             if ($albumStyle->getIdAlbum() === $this) {
                 $albumStyle->setIdAlbum(null);
             }
@@ -225,30 +221,27 @@ class Album
     }
 
     /**
-     * @return Collection<int, AlbumList>
+     * @return Collection<int, Liste>
      */
-    public function getAlbumLists(): Collection
+    public function getListes(): Collection
     {
-        return $this->albumLists;
+        return $this->listes;
     }
 
-    public function addAlbumList(AlbumList $albumList): static
+    public function addListe(Liste $liste): self
     {
-        if (!$this->albumLists->contains($albumList)) {
-            $this->albumLists->add($albumList);
-            $albumList->setIdAlbum($this);
-        }
+        
+        $this->listes[] = $liste;
+        $liste->addAlbum($this);
+    
 
         return $this;
     }
 
-    public function removeAlbumList(AlbumList $albumList): static
+    public function removeListe(Liste $liste): self
     {
-        if ($this->albumLists->removeElement($albumList)) {
-            // set the owning side to null (unless already changed)
-            if ($albumList->getIdAlbum() === $this) {
-                $albumList->setIdAlbum(null);
-            }
+        if ($this->listes->removeElement($liste)) {
+            $liste->removeAlbum($this);
         }
 
         return $this;
@@ -261,7 +254,7 @@ class Album
 
     public function setAlbumCover(AlbumCover $albumCover): static
     {
-        // set the owning side of the relation if necessary
+
         if ($albumCover->getIdAlbum() !== $this) {
             $albumCover->setIdAlbum($this);
         }
