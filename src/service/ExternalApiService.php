@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\service; // Modifier la première lettre en minuscule
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,3 +19,4 @@ class ExternalApiService {
         return new JsonResponse($response->getContent(), $response->getStatusCode(), [], true);
     }
 }
+
