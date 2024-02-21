@@ -48,81 +48,57 @@ class AlbumController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+    
 
     #[Route('/create_album/{name}/{country}/{date}/{url}', name:'create_album')]
-    public function create_album($name,$country,$date,$url): Response
+    public function create_album($name, $country, $date, $url): Response
     {
         /** @var Users $user */
         $user = $this->getUser();
         if (!$user) {
             throw $this->createNotFoundException('Pas de compte log.');
         }
+
         $existingList = $user->getList();
-        $existingAlbum = $this->entityManager->getRepository(Album::class)->findOneBy(['name' => $name ]);
-        
+        $existingAlbum = $this->entityManager->getRepository(Album::class)->findOneBy(['name' => $name]);
 
         if (!$existingAlbum) {
-        
-            //on crée l'album
+
             $album = new Album();
             $album->setName($name);
             $album->setCountries($country);
             $album->setReleaseDate(new \DateTime($date));
-            $this->entityManager->persist($album);
 
-            //on crée la cover pour l'album
             $cover = new Cover();
             $cover->setUrl($url);
-            $this->entityManager->persist($cover);
-        
-            //on ajoute la cover à l'album
-            $cover_album = new AlbumCover();
-            $cover_album->setIdAlbum($album); 
-            $cover_album->setIdCover($cover); 
-        
-            $album->setAlbumCover($cover_album); 
-        
-            $this->entityManager->persist($cover_album);
-            $this->entityManager->flush();
 
+            $albumCover = new AlbumCover();
+            $albumCover->setIdAlbum($album);
+            $albumCover->setIdCover($cover);
+
+            $album->setAlbumCover($albumCover);
+
+            $this->entityManager->persist($album);
+            $this->entityManager->persist($cover);
+            $this->entityManager->persist($albumCover);
 
             $existingList[0]->addAlbum($album);
-            
-            $this->entityManager->persist($existingList[0]); 
-            $this->entityManager->persist($album);
-            $this->entityManager->flush();
-            
-            $cover = new Cover();
-            $cover->setUrl("url");
-            $this->entityManager->persist($cover);
+            $this->entityManager->persist($existingList[0]);
 
-            $cover_album = new AlbumCover();
-            $cover_album->setIdAlbum($album); 
-            $cover_album->setIdCover($cover); 
-        
-            $album->setAlbumCover($cover_album); 
-        
-            $this->entityManager->persist($cover_album);
             $this->entityManager->flush();
 
-    
-            return $this->render('account_info/index.html.twig',[
-                'list' => $existingList[0]
-            ]);
-        }
-    
-
-        if ($existingAlbum){
-            $existingList[0]->addAlbum($existingAlbum);
-            
-            $this->entityManager->persist($existingList[0]); 
-            $this->entityManager->flush();
-    
-            return $this->render('account_info/index.html.twig',[
+            return $this->render('account_info/MyAlbum.html.twig', [
                 'list' => $existingList[0]
             ]);
         }
 
+        $existingList[0]->addAlbum($existingAlbum);
+        $this->entityManager->persist($existingList[0]);
+        $this->entityManager->flush();
+
+        return $this->render('account_info/MyAlbum.html.twig', [
+            'list' => $existingList[0]
+        ]);
     }
 }
    

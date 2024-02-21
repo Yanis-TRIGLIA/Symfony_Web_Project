@@ -1,0 +1,84 @@
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Spotyfruit</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse ms-auto" id="navbarSupportedContent">
+            
+                <form id="searchForm" class="form-inline d-flex justify-content-sm-center " action="{{ path('search', {'name': 'placeholder','style':'style_select','genre':'genre_select'}) }}">
+                <input id="searchInput" class="recherche" type="search" placeholder="Search" aria-label="Search">
+                <div class="form-group ms-5">
+                    <label for="exampleFormControlSelect1">Genre</label>
+                    <select id="select_genre" class="form-control" id="exampleFormControlSelect1">
+                        <option>Aucun</option>
+                        <option>Rock</option>
+                        <option>Hip Hop</option>
+                        <option>Electronique</option>
+                        <option>Jazz</option>
+                        <option>Folk</option>
+                    </select>
+                </div>
+                <div class="form-group ms-3">
+                    <label id="" for="exampleFormControlSelect1">Style</label>
+                    <select id="select_style" class="form-control " id="exampleFormControlSelect1">
+                        <option>Aucun</option>
+                        <option>Experimental</option>
+                        <option>Punk</option>
+                        <option>Soul</option>
+                        <option>House</option>
+                        <option>Rock progressif</option>
+                    </select> 
+                </div>
+                <button class="btn btn-outline-success" type="submit">Search</button>        
+        </div>
+                
+            
+        </form>
+
+        <script>
+            document.getElementById('searchForm').addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                                
+                var searchValue = document.getElementById('searchInput').value; 
+                var select_style = document.getElementById('select_style').value;
+                var select_genre = document.getElementById('select_genre').value;
+
+                var formAction = "{{ path('search', {'name': 'placeholder','style':'style_select','genre':'genre_select'}) }}";
+                
+                formAction = formAction.replace('placeholder', searchValue);
+                formAction = formAction.replace('style_select', select_style);
+                formAction = formAction.replace('genre_select', select_genre);    
+                            
+                document.getElementById('searchForm').setAttribute('action', formAction);
+                
+                this.submit();
+            });
+        </script>
+
+
+    
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if app.user %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/account/info">Mon compte<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{path('app_logout')}}">Déconnexion<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/account/my_album">Mes Albums<span class="sr-only"></span></a>
+                    </li>
+                {% endif %}
+
+                {% if app.user == false %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{path('app_login')}}">Connexion<span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{path('app_register')}}">M'inscrire<span class="sr-only"></span></a>
+                    </li>
+                {% endif %}
+                </ul>
+            </div>
+        </nav>

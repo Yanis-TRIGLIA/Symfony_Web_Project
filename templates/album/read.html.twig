@@ -32,7 +32,8 @@
   <h2>Information Album</h2>
   <header class="header_W2hzl"><h2></h2><span></span></header>
 
-<form id="searchForm" class="form-inline ms-auto" action="{{ path('create_album', {'name': album.title, 'country': album.country, 'date': album.released, 'url': "l'url"}) }}">
+
+<form id="searchForm" class="form-inline ms-auto" action="{{ path('create_album', {'name': album.title, 'country': album.country, 'date': album.released, 'url': album.thumb}) }}">
     <button class="btn btn-outline-success" type="submit">Ajouter Album à la liste</button>
 </form>
 
