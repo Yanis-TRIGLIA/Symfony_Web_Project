@@ -16,7 +16,7 @@ class AlbumFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('countries')
+            ->add('countries', ['required' => false])
             ->add('release_date')
             ->add('name')
         

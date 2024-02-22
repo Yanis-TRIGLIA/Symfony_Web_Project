@@ -7,14 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use Discogs\DiscogsClient;
+use App\Service\ExternalApiService;
 
 class ArtistsController extends AbstractController
 {
     #[Route('/artists/{id}', name: 'artists_read')]
-    public function read(Request $request,DiscogsClient $discogs,$id): Response
+    public function read(Request $request,ExternalApiService $externalApiService,$id): Response
     {
-        $artist = $discogs->getArtist(['id' => $id,]);
+        $artist = $externalApiService->getArtistDataById($id);
 
         return $this->render('artists/read.html.twig', ['artist' => $artist]);
     }

@@ -7,15 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use Discogs\DiscogsClient;
+use App\Service\ExternalApiService;
 
 class LabelController extends AbstractController
 {
     #[Route('/label/{id}', name: 'label_read')]
-    public function read(Request $request,DiscogsClient $discogs,$id): Response
+    public function read(Request $request, ExternalApiService $externalApiService, $id): Response
     {
-
-        $label = $discogs->getLabel(['id' => $id,]);
+        $label = $externalApiService->getLabelDataById($id);
 
         return $this->render('label/read.html.twig', ['label' => $label]);
     }

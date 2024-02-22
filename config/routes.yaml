@@ -4,8 +4,4 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-create_album:
-    path: /create_album/{name}/{country}/{date}/{url}
-    controller: App\Controller\AlbumController::create_album
-    requirements:
-        url: '.+'
+
