@@ -6,7 +6,7 @@
 
         <div class="collapse navbar-collapse ms-auto" id="navbarSupportedContent">
             
-                <form id="searchForm" class="form-inline d-flex justify-content-sm-center " action="{{ path('search', {'name': 'placeholder','style':'style_select','genre':'genre_select'}) }}">
+                <form id="searchForm" class="form-inline d-flex justify-content-sm-center " action="{{ path('search', {'name': 'placeholder','fruit': 'fruit_select','style':'style_select','genre':'genre_select'}) }}">
                 <input id="searchInput" class="recherche" type="search" placeholder="Search" aria-label="Search">
                 <div class="form-group ms-5">
                     <label for="exampleFormControlSelect1">Genre</label>
@@ -30,6 +30,17 @@
                         <option>Rock progressif</option>
                     </select> 
                 </div>
+                <div class="form-group ms-3">
+                    <label for="exampleFormControlSelect1">Fruit</label>
+                    <select id="select_fruit" class="form-control" id="exampleFormControlSelect1">
+                    <option>Aucun</option>
+                    <option>Fraise</option>
+                    <option>Poire</option>
+                    <option>Pomme</option>
+                    <option>Banane</option>
+                    <option>Kiwi</option>
+                    </select>
+                 </div>
                 <button class="btn btn-outline-success" type="submit">Search</button>        
         </div>
                 
@@ -43,12 +54,14 @@
                 var searchValue = document.getElementById('searchInput').value; 
                 var select_style = document.getElementById('select_style').value;
                 var select_genre = document.getElementById('select_genre').value;
+                var select_fruit = document.getElementById('select_fruit').value;
 
-                var formAction = "{{ path('search', {'name': 'placeholder','style':'style_select','genre':'genre_select'}) }}";
+                var formAction = "{{ path('search', {'name': 'placeholder','fruit':'fruit_select','style':'style_select','genre':'genre_select'}) }}";
                 
                 formAction = formAction.replace('placeholder', searchValue);
                 formAction = formAction.replace('style_select', select_style);
                 formAction = formAction.replace('genre_select', select_genre);    
+                formAction = formAction.replace('fruit_select', select_fruit)
                             
                 document.getElementById('searchForm').setAttribute('action', formAction);
                 
@@ -59,7 +72,7 @@
 
     
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                {% if app.user %}
+                {% if app.user == true %}
                     <li class="nav-item active">
                         <a class="nav-link" href="/account/info">Mon compte<span class="sr-only"></span></a>
                     </li>

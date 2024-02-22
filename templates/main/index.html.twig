@@ -3,20 +3,19 @@
 {% block title %} Accueil {% endblock %}
 {% block body %}
 
-
-<div class="example-wrapper">
-    <h1><center>Page d'Accueil de {{ controller_name }}</center></h1>
-    <p>Choisisez votre fruit<p>
-</div>
-
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{ asset('assets/css/style_main.css') }}">
+
+<center><div class="items-up-body">
+<div class="example-wrapper">
+    <h1><center>Page d'Accueil de {{ controller_name }}</center></h1>
+    <p><center>Choisisez votre fruit</center><p>
+</div>
 
 
-
-<div class="form-group">
+<center><div class="form-group selectFruit">
     <label for="exampleFormControlSelect1">Fruit</label>
     <select class="form-control" id="exampleFormControlSelect1">
       <option>Fraise</option>
@@ -25,7 +24,8 @@
       <option>Banane</option>
       <option>Kiwi</option>
     </select>
-</div>
+</div></center>
+</div></center>
 
   <div class="container">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
