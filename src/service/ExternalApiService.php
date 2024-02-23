@@ -15,15 +15,13 @@ class ExternalApiService {
         $this->token= $_ENV['DISCOGS_TOKEN'];
     }
 
-    public function getDataForMainSearch($fruit, $query=null, $genre, $style){
+    public function getDataForMainSearch($fruit, $query, $genre, $style){
         $url = "https://api.discogs.com/database/search?";
         
         if(!$fruit){
             throw new Exception("Aucun fruit passer", 1);
-        }elseif($query != null){
+        }else {
             $url = $url."q=".$fruit." ".$query;
-        }else{
-            $url = $url."q=".$fruit;
         }
 
         if($genre != "Aucun" && $style == "Aucun"){
