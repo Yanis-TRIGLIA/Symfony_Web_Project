@@ -1,57 +1,54 @@
 {% extends 'base.html.twig' %}
 
-
-{% block title %}Informations artist{% endblock %}
+{% block title %}{{ artist.name }}{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 35%; font: 18px/1.5 sans-serif;         
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-    background-color: rgba(212,212,212,0.8);
-    color:black;
-    border-radius: 10px;
+    .artist-info-wrapper { 
+        margin: 0 auto; 
+        max-width: 800px; 
+        width: 80%; 
+        font: 18px/1.5 sans-serif; 
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; 
+        background-color: #f9f9f9; 
+        color: #333; 
+        border-radius: 10px; 
+        padding: 20px;
+        text-align: center;
+        margin-top: 8%;
+        margin-bottom: 8%;
     }
 
-    .image_artist_page{
-        margin-left :100px;
-        margin-bottom:65px;
-        margin-top:65px;
-        width:300px;
-        height:200px
+    .artist-image {
+        margin-bottom: 20px;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .name_artiste{
-        margin-left:150px;
-        font-size:35px;
-        font-family:cursive;
+    .artist-name {
+        font-size: 28px;
+        font-family: 'Times New Roman', Times, serif;
+        color: #333;
     }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
-    .header_W2hzl {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-box;
-        display: flex;
-        border-bottom: 1px solid #e5e5e5;
-        width: 100%;
-        z-index: 99;
-
-}
-
-
+    .artist-description {
+        font-size: 18px;
+        margin-top: 20px;
+    }
 </style>
 
-
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<div class="example-wrapper">
-    <p class="name_artiste">{{ artist.name }}</p>
-    {% if artist.images is defined %}
-        <img class="image_artist_page" src="{{ artist.images[0]["uri"]}}">
-    {% endif %}
-    <br>
-    {{ artist.profile }}
+<div class="artist-info-wrapper">
+    <img class="artist-image" src="{{ artist.images[0]["uri"] | default('https://www.ads.fr/media/images/image-non-disponible.jpg') }}" alt="{{ artist.name }}">
+    <h1 class="artist-name">{{ artist.name }}</h1>
+    <div class="artist-description">
+        {{ artist.profile }}
+    </div>
 </div>
 {% endblock %}

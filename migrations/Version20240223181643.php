@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240222165848 extends AbstractMigration
+final class Version20240223181643 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20240222165848 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE album (id INT AUTO_INCREMENT NOT NULL, countries VARCHAR(255) DEFAULT NULL, release_date DATE NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE album (id INT AUTO_INCREMENT NOT NULL, countries VARCHAR(255) DEFAULT NULL, release_date DATE NOT NULL, name VARCHAR(255) NOT NULL, id_discogs INT NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE album_band (id_album_id INT NOT NULL, id_band_id INT NOT NULL, INDEX IDX_2CD414AB41EC475A (id_album_id), INDEX IDX_2CD414AB97364267 (id_band_id), PRIMARY KEY(id_album_id, id_band_id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE album_cover (id_album_id INT NOT NULL, id_cover_id INT NOT NULL, INDEX IDX_FBB0CCE341EC475A (id_album_id), INDEX IDX_FBB0CCE3C2FCCA7C (id_cover_id), PRIMARY KEY(id_album_id, id_cover_id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE album_gender (id_album_id INT NOT NULL, id_gender_id INT NOT NULL, INDEX IDX_153C37F541EC475A (id_album_id), INDEX IDX_153C37F5873D1CC7 (id_gender_id), PRIMARY KEY(id_album_id, id_gender_id)) DEFAULT CHARACTER SET utf8mb4');

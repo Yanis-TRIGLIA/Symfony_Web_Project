@@ -14,9 +14,9 @@
     }
 
     .artist-column {
-        flex: 1 1 calc(100% / 7); /* Chaque colonne aura 7 boutons au maximum */
-        max-width: calc(100% / 7); /* Limite la largeur de chaque colonne */
-        padding: 0 10px; /* Espacement entre les colonnes */
+        flex: 1 1 calc(100% / 7); 
+        max-width: calc(100% / 7); 
+        padding: 0 10px; 
     }
 
     .image-button {
@@ -62,11 +62,13 @@
         {% set count = 0 %}
         <div class="artist-column">
             {% for key, img in img %}
+            
                 {% set count = count + 1 %}
                 <li>
                     {% if type[key] == "master" or type[key] == "release" %}
                         <form action="{{ path('album_read', {'id': id[key],'type': type[key]}) }}" method="get">
                             <button type="submit" class="image-button">
+                               
                                 <img src="{{ img }}" alt="Artwork" class="artist-image">
                                 <p class="image-title">{{ title[key]|slice(0, 20) }}</p>
                             </button>

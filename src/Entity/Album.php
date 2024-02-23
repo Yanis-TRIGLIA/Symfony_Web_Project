@@ -46,6 +46,12 @@ class Album
     #[ORM\OneToOne(mappedBy: 'id_album', cascade: ['persist', 'remove'])]
     private ?AlbumCover $albumCover ;
 
+    #[ORM\Column]
+    public ?int $id_discogs = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
     public function __construct()
     {
         $this->albumParts = new ArrayCollection();
@@ -260,6 +266,30 @@ class Album
         }
 
         $this->albumCover = $albumCover;
+
+        return $this;
+    }
+
+    public function getIdDiscogs(): ?int
+    {
+        return $this->id_discogs;
+    }
+
+    public function setIdDiscogs(int $id_discogs): static
+    {
+        $this->id_discogs = $id_discogs;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

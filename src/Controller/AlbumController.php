@@ -83,7 +83,12 @@ class AlbumController extends AbstractController
             if(isset($discogsAlbum['country'])){ 
                 $album->setCountries($discogsAlbum['country']);
             }
+          
             $album->setReleaseDate(new \DateTime($discogsAlbum['year']));
+
+            $album->setIdDiscogs($discogsAlbum['id']);
+            
+            $album->setType($type);
 
             $cover = new Cover();
             $cover->setUrl($discogsAlbum['images'][0]['uri']);
@@ -154,6 +159,7 @@ class AlbumController extends AbstractController
             $duration[] = $track['duration'];
         }
 
+
         return $this->render('album/read.html.twig', [
             'album' => $discogsAlbum,
             'type' => $type,
@@ -161,6 +167,8 @@ class AlbumController extends AbstractController
             'title'=>$title,
             'existingAlbum' => null
         ]);
+    
+
     }
 }
    

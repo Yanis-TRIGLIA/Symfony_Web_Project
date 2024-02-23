@@ -12,16 +12,16 @@
 
 <style>
     .example-wrapper {
-      padding: 20px;
-      background-color: rgba(212,212,212,0.8);
-      width:500px;
-      height:100px;
-      margin-left:350px;
-      border-bottom: 1px solid #ccc;
-      text-align: center;
-      justify-content:center;
+    padding: 20px;
+    background-color: rgba(220,252,255,0.6);
+    width: 600px;
+    height: 120px;
+    margin-left: 350px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    justify-content: center;
+    width: 50%;
     }
-
 
     .form-group {
       margin-bottom: 20px;
@@ -44,7 +44,11 @@
     height: 50px;
     margin: auto;
     font-size: 20px;
-  }
+    margin-right: 30%;
+    margin-bottom: 15%;
+    margin-left: 25%;
+    color: #ff6e00;
+}
 
     .carousel-indicators .active {
       background-color: #333;
@@ -60,11 +64,21 @@
     .item:hover{
       cursor: pointer;
     }
+    .itm{
+      width: 40%;
+      height: 30px;
+      margin-bottom:8%;
+    }
   
 </style>
 
 <div class="example-wrapper ">
-  <h1>Choisissez votre fruit</h1>
+  {% if app.user == true %}
+    <h1>👋 Bienvenue sur Spotyfruit {{ app.user.name }}</h1>
+    {% endif %}
+  {% if app.user == false %}
+    <h1>🍇️Rejoignez notre plateforme fruitée🍊️</h1>
+    {% endif %}
 </div>
 
 <div class="container">
@@ -78,26 +92,26 @@
       </ol>
 
 
-      <form id="searchfruit" class="form-inline d-flex justify-content-sm-center " action="{{ path('search', {'name': ' ','fruit': ' ','style':'Aucun','genre':'Aucun'}) }}" method="GET">
+      <form id="searchfruit" class="" action="{{ path('search', {'name': ' ','fruit': ' ','style':'Aucun','genre':'Aucun'}) }}" method="GET">
 
       <div class="carousel-inner">
-        <div class="item active" >
-          <img src="https://cdn.discordapp.com/attachments/927636625314431059/1210550152851619840/images.jpeg?ex=65eaf7af&is=65d882af&hm=588c7a6ef03c6755c49c63a49d5b73979d85c7e3c1a5fc2128f17a0719a5e7ee&" alt="Banane" onclick="submitForm('Kiwi')">
+        <div class="item active " >
+          <img class="itm" src="https://cdn.discordapp.com/attachments/927636625314431059/1210619603206803597/i102071-kiwi-nu.png?ex=65eb385d&is=65d8c35d&hm=7bebc15f0ee2897e151915eac6dbdd044a87f511fefa52025edc2810edb48ac2&" alt="Kiwi" onclick="submitForm('Kiwi')">
       </div>
       <div class="item" >
-        <img src="https://cdn.discordapp.com/attachments/927636625314431059/1210549000831373362/kiwi.jpg?ex=65eaf69c&is=65d8819c&hm=86a66513f99a5f537c33a92d24dfb358b30fc4dfb68b5096b1b126ce68f443a6&" alt="Kiwi" onclick="submitForm('Banane')">
+        <img class="itm" src="https://cdn.discordapp.com/attachments/927636625314431059/1210619601214251118/BANANE.png?ex=65eb385d&is=65d8c35d&hm=d09496674328c48f0d43bdfe72623764f9265bf65c8855f5540ff37e6a98ca33&" alt="Banane" onclick="submitForm('Banane')">
       </div>
       <div class="item" >
-        <img src="https://www.princedebretagne.com/sites/default/files/styles/540x350/public/2020-05/fraise-magnum.jpg?itok=scSCEO62" alt="Orange" onclick="submitForm('Fraise')">
+        <img class="itm" src="https://cdn.discordapp.com/attachments/927636625314431059/1210619602082467871/fraise-1791x1080.png?ex=65eb385d&is=65d8c35d&hm=67119d6c7054ca02347080c8cb160bb54e964cef4e742111bb61e3b3cd5cb107&" alt="Fraise" onclick="submitForm('Fraise')">
       </div>
       <div class="item" >
-        <img src="https://www.princedebretagne.com/sites/default/files/styles/540x350/public/2020-05/fraise-magnum.jpg?itok=scSCEO62" alt="Orange" onclick="submitForm('Pastéque')">
+        <img class="itm" src="https://cdn.discordapp.com/attachments/927636625314431059/1210619604427341864/pasteque-fruit.png?ex=65eb385d&is=65d8c35d&hm=420060da03c6335bbc6ebf36800a176e5a24ff74e601592d748213d81502af8c&" alt="Pastéque" onclick="submitForm('Pastéque')">
       </div>
       <div class="item" >
-        <img src="https://www.princedebretagne.com/sites/default/files/styles/540x350/public/2020-05/fraise-magnum.jpg?itok=scSCEO62" alt="Orange" onclick="submitForm('Pomme')">
+        <img class="itm" src="https://cdn.discordapp.com/attachments/927636625314431059/1210619605240905780/pomme-detouree.png?ex=65eb385e&is=65d8c35e&hm=e0c3cf5666cdecba72fec59106ba6bcc1ecbf55f862d4062b4f8ae4444078c7c&" alt="Pomme" onclick="submitForm('Pomme')">
       </div>
       <div class="item" >
-        <img src="https://cdn.discordapp.com/attachments/885591577819496499/1208790068379258911/image.png?ex=65e4907a&is=65d21b7a&hm=5120c733870e1a29ccb3d5ac23a23dcf61f1b2591b6d08705f9168b5503f6bca&" alt="Orange" onclick="submitForm('Poire')">
+        <img class="itm" src="https://cdn.discordapp.com/attachments/927636625314431059/1210619605798617098/r69-poire-williams_fotolia.png?ex=65eb385e&is=65d8c35e&hm=0ba3e68efec276983c7e861f2a6ca19dcb2860854dd87c37960008bf034e7a76&" alt="Poire" onclick="submitForm('Poire')">
       </div>
     </div>
       </div>

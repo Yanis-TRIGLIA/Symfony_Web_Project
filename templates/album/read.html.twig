@@ -4,68 +4,93 @@
 {% block title %}Informations Compte{% endblock %}
 
 {% block body %}
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{ asset('assets/css/style_main.css') }}">
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 35%; font: 18px/1.5 sans-serif;         
+ .example-wrapper {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 35%;
+    font: 18px/1.5 sans-serif;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-    background-color: rgba(212,212,212,0.8);
-    color:black;
+    background-color: rgba(212, 212, 212, 0.8);
+    color: black;
     border-radius: 10px;
-    }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+}
 
-    .header_W2hzl {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-box;
-        display: flex;
-        border-bottom: 1px solid black;
-        width: 100%;
-        z-index: 99;
+.example-wrapper code {
+    background: #F5F5F5;
+    padding: 2px 6px;
+}
 
+.header_W2hzl {
+    display: flex;
+    border-bottom: 1px solid black;
+    width: 100%;
+    z-index: 99;
+}
+
+.album-info {
+    text-align: center;
+}
+
+.tracklist {
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+}
+
+.table th,
+.table td {
+    padding: 8px;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #fff;
 }
 
 
 </style>
 
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <div class="example-wrapper">
   
-  <h2><center>Information Album</center></h2>
-  <header class="header_W2hzl"><h2></h2><span></span></header>
-  {% if app.user and existingAlbum == null %}
-    <a class="btn" href="{{ path('create_album', {'type':type,'id':album.id}) }}">test</a>
-  {% elseif app.user and existingAlbum != null %}
-    <a class="btn" href="{{ path('delete_album', {'type':type,'id':existingAlbum.id, 'discogsId':album.id}) }}">test delete</a>
-  {% endif %}
+  <div class="album-info">
+      <h2>Information Album</h2>
+      {% if app.user and existingAlbum == null %}
+      <a class="btn_create" href="{{ path('create_album', {'type':type,'id':album.id}) }}"><span>☆ Ajouter à ma liste</span></a>
+      {% elseif app.user and existingAlbum != null %}
+      <a class="btn_delete" href="{{ path('delete_album', {'type':type,'id':existingAlbum.id, 'discogsId':album.id }) }}"><span>🗑️ Supprimer de ma liste</span></a>
+      {% endif %}
+      <header class="header_W2hzl"><h2></h2><span></span></header>
+      <p>Titre : {{album.title}}</p>
+  </div>
 
-  <center><p>  Titre : {{album.title}}  </p>
-
-
-
-  <h3>TrackList</h3></center>
-  <header class="header_W2hzl"><h2></h2><span></span></header>
-
+  <div class="tracklist">
+      <h3>TrackList</h3>
+      <header class="header_W2hzl"><h2></h2><span></span></header>
       <table class="table">
-  <thead>
-      <tr>
-      <th scope="col">Titre</th>
-      <th scope="col">durÃ©e</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-      {% for key,time in duration %}
-        <th scope="row">{{title[key]}}</th>
-        <td>{{time}}</td>
-        </tr>
-      {% endfor %}
-  </tbody>
-  </table>
-
-
+          <thead>
+              <tr>
+                  <th scope="col">Titre</th>
+                  <th scope="col">durée</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for key,time in duration %}
+                  <tr>
+                      <th scope="row">{{title[key]}}</th>
+                      <td>{{time}}</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
   </div>
 </div>
 {% endblock %}

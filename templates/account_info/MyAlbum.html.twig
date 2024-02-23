@@ -58,6 +58,36 @@
         }
     }
 
+    .suppression{
+            color: #fff;
+            background-color: red;
+            border-color: red;
+    }
+    .btun{
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        border-radius: 4px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin-bottom:5px;
+    }
+
+    
+
 </style>
 
 
@@ -68,25 +98,35 @@
 <div class="container">
     <div class="row">
         {% for album in list.albums %}
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            {% if album.albumCover is not null %}
-                                <img class="card-img" src="{{ album.albumCover.id_cover.url }}" alt="Cover">
-                            {% else %}
-                                <p>Pas de couver disponible</p>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-8 card-details">
-                            <h5 class="card-title">{{ album.name }}</h5>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {% if album.albumCover is not null %}
+                                    <img class="card-img" src="{{ album.albumCover.id_cover.url }}" alt="Cover">
+                                {% else %}
+                                    <p>Pas de cover disponible</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8 card-details">
+                                <h5 class="card-title">{{ album.name }}</h5>
+                                <form action="{{ path('album_read', {'id': album.id_discogs,'type': album.type}) }}" method="get">
+                                    <button type="submit" class="btun btn-primary">Plus d'informations</button>
+                                </form>
+                                <form action="{{ path('delete_album', {'type':album.type,'id': album.id, 'discogsId':album.id}) }}"  method="get">
+                                    <button type="submit" class="btun suppression">🗑️ Suppresion</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>
+
+    </div>
+</div>
+
 {% endblock %}

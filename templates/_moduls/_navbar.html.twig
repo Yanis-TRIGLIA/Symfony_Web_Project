@@ -1,4 +1,5 @@
  <nav class="navbar navbar-expand-lg navbar-light bg-black text-light">
+        <img src="https://media.discordapp.net/attachments/927636625314431059/1210635189563293796/OIG3.ITP3.7UHV.png?ex=65eb46e1&is=65d8d1e1&hm=852dca7d21dd41a433c870229fbe9a37ffc290a65b6982a96f838f275c17b6cf&=&format=webp&quality=lossless&width=384&height=384" alt="Logo" height="60em">
         <a class="navbar-brand text-light" href="/">Spotyfruit</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -7,45 +8,97 @@
         <div class="collapse navbar-collapse ms-auto" id="navbarSupportedContent">
             
                 <form id="searchForm" class="form-inline d-flex justify-content-sm-center " action="{{ path('search', {'name': 'placeholder','fruit': 'fruit_select','style':'style_select','genre':'genre_select'}) }}">
-                <input id="searchInput" class="recherche" type="search" placeholder="Search" aria-label="Search" required>
-                <div class="form-group ms-5">
+                <input id="searchInput" class="recherche" type="search" placeholder="Recherche Fruitée" aria-label="Search" required>
+                <div class="form-group ms-5 select-wrapper" >
                     <label for="exampleFormControlSelect1">Genre</label>
-                    <select id="select_genre" class="form-control" id="exampleFormControlSelect1">
-                        <option>Aucun</option>
-                        <option>Rock</option>
-                        <option>Hip Hop</option>
-                        <option>Electronique</option>
-                        <option>Jazz</option>
-                        <option>Folk</option>
-                    </select>
-                </div>
-                <div class="form-group ms-3">
-                    <label id="" for="exampleFormControlSelect1">Style</label>
-                    <select id="select_style" class="form-control " id="exampleFormControlSelect1">
-                        <option>Aucun</option>
-                        <option>Experimental</option>
-                        <option>Punk</option>
-                        <option>Soul</option>
-                        <option>House</option>
-                        <option>Rock progressif</option>
-                    </select> 
-                </div>
-                <div class="form-group ms-3">
-                    <label for="exampleFormControlSelect1">Fruit</label>
-                    <select id="select_fruit" class="form-control" required>
+                    <select id="select_genre" class="form-control">
+                    <option>Aucun</option>
+                    <option>Rock</option>
+                    <option>Hip Hop</option>
+                    <option>Electronique</option>
+                    <option>Jazz</option>
+                    <option>Folk</option>
+                </select>
+            </div>
+            <div class="form-group ms-3 select-wrapper">
+                <label for="select_style" class="select-label">Style</label>
+                <select id="select_style" class="form-control">
+                    <option>Aucun</option>
+                    <option>Experimental</option>
+                    <option>Punk</option>
+                    <option>Soul</option>
+                    <option>House</option>
+                    <option>Rock progressif</option>
+                </select>
+            </div>
+            <div class="form-group ms-3 select-wrapper">
+                <label for="select_fruit" class="select-label">Fruit</label>
+                <select id="select_fruit" class="form-control" required>
                     <option value="">Aucun</option>
-                    <option value="fraise">Fraise</option>
-                    <option value="poire">Poire</option>
-                    <option value="banane">Banane</option>
-                    <option value="kiwi">Kiwi</option>
-                    </select>
+                    <option value="fraise">🍓 Fraise</option>
+                    <option value="poire">🍐 Poire</option>
+                    <option value="pomme">🍎 Pomme</option>
+                    <option value="banane">🍌 Banane</option>
+                    <option value="kiwi">🥝 Kiwi</option>
+                    <option value="mangue">🥭 Mangue</option>
+                    <option value="coco">🥥 Coco</option>
+                    <option value="pasteque">🍉 Pastéque</option>
+                    <option value="cerise">🍒 Cerise</option>
+                    <option value="pêche">🍑 Pêche</option>
+                    <option value="ananas">🍍Ananas</option>
+                </select>
                  </div>
-                <button class="btn btn-outline-success" type="submit">Search</button>        
+                <button class="btn btn-outline-success" type="submit">Rechercher</button>        
         </div>
                 
             
         </form>
+<style>
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
 
+.select-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  padding: 8px 38px 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #495057;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px; 
+}
+
+.select-wrapper select:focus {
+  outline: none;
+}
+
+.select-wrapper::after {
+  content: '\25BC';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+.select-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.select-wrapper select option[selected] {
+  background-color: #007bff; 
+  color: #fff; 
+}
+
+</style>
         <script>
             document.getElementById('searchForm').addEventListener('submit', function(event) {
                 event.preventDefault(); 
@@ -76,10 +129,10 @@
                         <a class="nav-link text-light" href="/account/info">Mon compte<span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="{{path('app_logout')}}">Déconnexion<span class="sr-only"></span></a>
+                        <a class="nav-link text-light" href="/account/my_album">Mes Albums<span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="/account/my_album">Mes Albums<span class="sr-only"></span></a>
+                        <a class="nav-link text-light" href="{{path('app_logout')}}">Déconnexion<span class="sr-only"></span></a>
                     </li>
                 {% endif %}
 
