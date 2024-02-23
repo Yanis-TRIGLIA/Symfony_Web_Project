@@ -38,7 +38,7 @@
   {% if app.user and existingAlbum == null %}
     <a class="btn" href="{{ path('create_album', {'type':type,'id':album.id}) }}">test</a>
   {% elseif app.user and existingAlbum != null %}
-    <a class="btn" href="{{ path('delete_album', {'type':type,'id':existingAlbum.id, 'discogsId':album.id}}) }}">test delete</a>
+    <a class="btn" href="{{ path('delete_album', {'type':type,'id':existingAlbum.id, 'discogsId':album.id}) }}">test delete</a>
   {% endif %}
 
   <center><p>  Titre : {{album.title}}  </p>

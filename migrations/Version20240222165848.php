@@ -10,11 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-<<<<<<<< HEAD:migrations/Version20240222075602.php
-final class Version20240222075602 extends AbstractMigration
-========
-final class Version20240222130535 extends AbstractMigration
->>>>>>>> d037dc0 (external api + add album to list + begging of delete album):migrations/Version20240222130535.php
+final class Version20240222165848 extends AbstractMigration
 {
     public function getDescription(): string
     {

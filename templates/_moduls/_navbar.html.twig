@@ -1,5 +1,5 @@
- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Spotyfruit</a>
+ <nav class="navbar navbar-expand-lg navbar-light bg-black text-light">
+        <a class="navbar-brand text-light" href="/">Spotyfruit</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse ms-auto" id="navbarSupportedContent">
             
                 <form id="searchForm" class="form-inline d-flex justify-content-sm-center " action="{{ path('search', {'name': 'placeholder','fruit': 'fruit_select','style':'style_select','genre':'genre_select'}) }}">
-                <input id="searchInput" class="recherche" type="search" placeholder="Search" aria-label="Search">
+                <input id="searchInput" class="recherche" type="search" placeholder="Search" aria-label="Search" required>
                 <div class="form-group ms-5">
                     <label for="exampleFormControlSelect1">Genre</label>
                     <select id="select_genre" class="form-control" id="exampleFormControlSelect1">
@@ -32,13 +32,12 @@
                 </div>
                 <div class="form-group ms-3">
                     <label for="exampleFormControlSelect1">Fruit</label>
-                    <select id="select_fruit" class="form-control" id="exampleFormControlSelect1">
-                    <option>Aucun</option>
-                    <option>Fraise</option>
-                    <option>Poire</option>
-                    <option>Pomme</option>
-                    <option>Banane</option>
-                    <option>Kiwi</option>
+                    <select id="select_fruit" class="form-control" required>
+                    <option value="">Aucun</option>
+                    <option value="fraise">Fraise</option>
+                    <option value="poire">Poire</option>
+                    <option value="banane">Banane</option>
+                    <option value="kiwi">Kiwi</option>
                     </select>
                  </div>
                 <button class="btn btn-outline-success" type="submit">Search</button>        
@@ -71,25 +70,25 @@
 
 
     
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
                 {% if app.user == true %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="/account/info">Mon compte<span class="sr-only"></span></a>
+                        <a class="nav-link text-light" href="/account/info">Mon compte<span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{path('app_logout')}}">Déconnexion<span class="sr-only"></span></a>
+                        <a class="nav-link text-light" href="{{path('app_logout')}}">Déconnexion<span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/account/my_album">Mes Albums<span class="sr-only"></span></a>
+                        <a class="nav-link text-light" href="/account/my_album">Mes Albums<span class="sr-only"></span></a>
                     </li>
                 {% endif %}
 
                 {% if app.user == false %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{path('app_login')}}">Connexion<span class="sr-only"></span></a>
+                        <a class="nav-link text-light" href="{{path('app_login')}}">Connexion<span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{path('app_register')}}">M'inscrire<span class="sr-only"></span></a>
+                        <a class="nav-link text-light" href="{{path('app_register')}}">M'inscrire<span class="sr-only"></span></a>
                     </li>
                 {% endif %}
                 </ul>

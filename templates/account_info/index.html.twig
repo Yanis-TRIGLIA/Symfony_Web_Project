@@ -5,8 +5,9 @@
 {% block body %}
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{{ asset('assets/css/style_account_info.css') }}">
   
 <div class="container-fluid">
     <div class="row justify-content-center mt-5 mb-5">
@@ -19,8 +20,8 @@
                                 <div class="m-b-25">
                                     <img src="https://cdn-icons-png.flaticon.com/256/5036/5036365.png" width="100" height="auto" alt="User-Profile-Image">
                                 </div>
-                                <h6 class="f-w-600">{{ app.user.name }}</h6>
-                                <p>Fan de Musique</p>
+                                <h6 class="f-w-600 texte_color_info">{{ app.user.name }}</h6>
+                                <p class="texte_color_info">Fan de Musique</p>
                                 <a href="#" class="mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></a>
                             </div>
                         </div>
@@ -29,8 +30,8 @@
                                 <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Informations</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">{{ app.user.email }}</h6>
+                                        <p class="m-b-10 f-w-600 texte_color_info">Email</p>
+                                        <h6 class="text-muted f-w-400 texte_color_info">{{ app.user.email }}</h6>
                                     </div>
                                 </div>
                                 <div class="row mt-4">

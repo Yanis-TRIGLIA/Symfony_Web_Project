@@ -1,15 +1,29 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Informations Compte{% endblock %}
+{% block title %}Informations artist{% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 35%; font: 18px/1.5 sans-serif;         
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-    background-color:black;
-    color:white;
+    background-color: rgba(212,212,212,0.8);
+    color:black;
     border-radius: 10px;
+    }
+
+    .image_artist_page{
+        margin-left :100px;
+        margin-bottom:65px;
+        margin-top:65px;
+        width:300px;
+        height:200px
+    }
+
+    .name_artiste{
+        margin-left:150px;
+        font-size:35px;
+        font-family:cursive;
     }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
@@ -33,9 +47,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <div class="example-wrapper">
-    {{ artist.name }}
+    <p class="name_artiste">{{ artist.name }}</p>
     {% if artist.images is defined %}
-        <img src="{{ artist.images[0]["uri"]}}">
+        <img class="image_artist_page" src="{{ artist.images[0]["uri"]}}">
     {% endif %}
     <br>
     {{ artist.profile }}
