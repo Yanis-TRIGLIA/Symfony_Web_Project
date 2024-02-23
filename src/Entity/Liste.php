@@ -53,7 +53,7 @@ class Liste
 
     public function removeAlbum(Album $album): self
     {
-        if ($this->albums->removeElement($album)) {
+        if (!$this->albums->removeElement($album)) {
             $album->removeListe($this);
         }
 

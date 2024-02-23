@@ -37,6 +37,12 @@ class AlbumController extends AbstractController
 
         if($user = $this->getUser()){
             $existingAlbum = $albumRepository->findOneBy(['name' => $album['title']]);
+            $lists = $user->getList();
+            foreach($lists as $list){
+                if(!in_array($existingAlbum, $list->getAlbums()->toArray())){
+                    $existingAlbum = null;
+                }
+            }
         }else{
             $existingAlbum = null;
         }
@@ -75,7 +81,7 @@ class AlbumController extends AbstractController
             $album = new Album();
             $album->setName($discogsAlbum['title']);
             if(isset($discogsAlbum['country'])){ 
-                $album->setCountries($country);
+                $album->setCountries($discogsAlbum['country']);
             }
             $album->setReleaseDate(new \DateTime($discogsAlbum['year']));
 
@@ -104,22 +110,57 @@ class AlbumController extends AbstractController
         ]);
     }
 
-    #[Route('/album/delete/{type}/{id}', name:'delete_album')]
-    public function delete(AlbumRepository $albumRepository, ListeRepository $listRepository, EntityManagerInterface $entityManager, $type, $id){
+    #[Route('/album/delete/{type}/{id}/{discogsId}', name:'delete_album')]
+    public function delete(AlbumRepository $albumRepository, ListeRepository $listRepository, EntityManagerInterface $entityManager, ExternalApiService $externalApiService, $type, $id, $discogsId){
         $user = $this->getUser();
         if (!$user) {
             throw $this->createNotFoundException('Pas de compte log.');
         }
 
-        $existingList = $user->getList();
+        $userList = $user->getList()->toArray()[0];
 
         $album = $albumRepository->find($id);
+        
+        $album->addListe($userList);
 
-        $userList = $listRepository->findBy(['users' => [$user]]);
+        $userList->removeAlbum($album);
+        
+        $lists = $listRepository->findAll();
 
-        $listWhereTheAlbumExist = $listRepository->find();
+        $removeAlbum = true;
 
-        dd($album, $listWhereTheAlbumExist, $userList);
+        foreach ($lists as $list) {
+            if (in_array($album,$list->getAlbums()->toArray()) || $removeAlbum == false){
+                $removeAlbum = false;
+            }
+        }
+
+        if($removeAlbum){
+            $entityManager->remove($album);
+        }
+
+        $entityManager->flush();
+
+        if($type =="release"){
+            $discogsAlbum = $externalApiService->getReleaseDataById($id);
+        } else {
+            $discogsAlbum = $externalApiService->getMasterDataById($id);
+        }
+
+        $duration = [];
+        $title = [];
+        foreach ($discogsAlbum['tracklist'] as $track) {            
+            $title [] = $track['title'];
+            $duration[] = $track['duration'];
+        }
+
+        return $this->render('album/read.html.twig', [
+            'album' => $discogsAlbum,
+            'type' => $type,
+            'duration'=> $duration,
+            'title'=>$title,
+            'existingAlbum' => null
+        ]);
     }
 }
    
