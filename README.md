@@ -8,6 +8,9 @@
 
 Ce site, construit avec l'architecture Symfony 6.4, a été créé dans le but d'utiliser l'API Discogs tout en ayant un thème lié aux fruits. Nous offrons aux utilisateurs la possibilité de créer un compte sur notre site, où ils peuvent constituer leur propre liste musicale composée de leurs albums préférés. Nous vous souhaitons une agréable visite sur notre site fruité !
 
+Vous pouvez accéder à notre site via ce lien : [SpotyFruit](https://spotyfruitiut.alwaysdata.net/)
+
+
 ### Aperçu du site :
 
 <div style="text-align:center;">
