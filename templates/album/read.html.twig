@@ -68,6 +68,10 @@
       {% elseif app.user and existingAlbum != null %}
       <a class="btn_delete" href="{{ path('delete_album', {'type':type,'id':existingAlbum.id, 'discogsId':album.id }) }}"><span>🗑️ Supprimer de ma liste</span></a>
       {% endif %}
+      {% if app.user == false %}
+        <a class="btn" href="/login"> Connecter vous pour Ajouter un album à votre liste </a>
+      {% endif %}
+
       <header class="header_W2hzl"><h2></h2><span></span></header>
       <p>Titre : {{album.title}}</p>
   </div>

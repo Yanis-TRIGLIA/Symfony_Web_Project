@@ -85,6 +85,18 @@
         user-select: none;
         margin-bottom:5px;
     }
+    .vide {
+        font-family: inherit;
+        font-weight: 400;
+        line-height: 1.1;
+        color: inherit;
+        border-radius: 10px;
+        background-color: antiquewhite;
+        padding: 50px;
+        font-family: fangsong;
+        margin-bottom: 47px;
+    }
+    
 
     
 
@@ -97,7 +109,17 @@
 
 <div class="container">
     <div class="row">
+
+        {% if list.albums is empty %}
+        <div class="vide">
+             <h1 >Pas D"album disponible dans votre Liste !</h1>
+             <h3 >Commencer votre aventure Musical en ajoutant un album 💿</h3>
+            </div>
+        {% endif %}
+
         {% for album in list.albums %}
+
+           
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">

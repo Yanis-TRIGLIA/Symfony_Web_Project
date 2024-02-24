@@ -160,7 +160,7 @@ class AlbumController extends AbstractController
         }
 
 
-        return $this->render('album/read.html.twig', [
+        return $this->render('account_info/MyAlbum.html.twig', [
             'album' => $discogsAlbum,
             'type' => $type,
             'duration'=> $duration,
